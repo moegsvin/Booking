@@ -5,6 +5,10 @@ namespace Booking.Domain.Entities;
 
 public class Booking
 {
+    public Booking()
+    {
+
+    }
     // DO NOT USE - EF and TEST ONLY!!!
     public Booking(Guid id, DateTime start, DateTime slut)
     {
@@ -12,6 +16,8 @@ public class Booking
         Start = start;
         Slut = slut;
     }
+
+    
 
     public Booking(IServiceProvider serviceProvider, DateTime start, DateTime slut)
     {
@@ -29,7 +35,7 @@ public class Booking
 
     public IServiceProvider? ServiceProvider { get; set; }
 
-    public Guid Id { get; }
+    public Guid Id { get; private set; }
     public DateTime Start { get; private set; }
     public DateTime Slut { get; private set; }
 

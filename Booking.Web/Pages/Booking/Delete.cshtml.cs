@@ -24,7 +24,7 @@ namespace Booking.Web.Pages.Booking
             var domainBooking = _bookingQuery.GetBooking(id.Value);
             if (domainBooking == null) return NotFound();
 
-            _bookingCommand.Delete(domainBooking.Id);
+            _bookingCommand.Delete(new BookingCommandDto { Id = id.Value });
 
             return RedirectToPage("./Index");
         }
