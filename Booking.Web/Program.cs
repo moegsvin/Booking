@@ -2,14 +2,23 @@ using Booking.Application.Contract;
 using Booking.Application.Implementation;
 using Booking.Application.Infrastructure;
 using Booking.Domain.DomainServices;
+using Booking.Infrastructure.Data;
 using Booking.Infrastructure.DomainServicesImpl;
 using Booking.Infrastructure.Queries;
 using Booking.Infrastructure.RepositoriesImpl;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddDbContext<BookingContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("DefaultConnection"), x =>
+    {
+        x.MigrationsAssembly("Booking.Web");
+    }));
+
 builder.Services.AddScoped<IBookingQuery, BookingQuery>();
 builder.Services.AddScoped<IBookingCommand, BookingCommand>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
