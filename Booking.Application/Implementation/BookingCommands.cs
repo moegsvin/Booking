@@ -15,9 +15,15 @@ public class BookingCommand : IBookingCommand
         _repository = repository;
     }
 
-    public void Delete(Guid id)
+    // TODO: Slettes
+    //public void Delete(Guid id)
+    //{
+    //    _repository.Delete(id);
+    //}
+
+    public void Delete(BookingCommandDto bookingDto)
     {
-        _repository.Delete(id);
+        _repository.Delete(bookingDto.Id);
     }
 
     void IBookingCommand.Create(BookingCommandDto bookingDto)
