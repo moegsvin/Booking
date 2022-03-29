@@ -23,28 +23,43 @@ public class BookingRepository : IBookingRepository
         }
         catch
         {
-            throw new Exception("Failed to delete booking")
+            throw new Exception("Failed to delete booking");
         }
     }
 
     void IBookingRepository.Add(Domain.Entities.Booking booking)
     {
-        Database.Bookings.Add(booking.Id, new BookingQueryDto{Id = booking.Id, Slut = booking.Slut, Start = booking.Start});
+        context.Bookings.Add(booking);
+
+        // TODO: Remove after explenation
+        //context.Bookings.Add(booking.Id, new BookingQueryDto{Id = booking.Id, Slut = booking.Slut, Start = booking.Start});
     }
 
     Domain.Entities.Booking IBookingRepository.Get(Guid id)
     {
-        var db = Database.Bookings[id];
-        return new Domain.Entities.Booking(db.Id, db.Start, db.Slut);
+        var dbBooking = context.Bookings.Find(id);
+        return dbBooking;
+        //var db = Database.Bookings[id];
+        //return new Domain.Entities.Booking(db.Id, db.Start, db.Slut);
     }
 
     void IBookingRepository.Save(Domain.Entities.Booking booking)
     {
-        if (!Database.Bookings.ContainsKey(booking.Id)) throw new Exception("Booking findes ikke i databasen");
+        //if (!Database.Bookings.ContainsKey(booking.Id)) throw new Exception("Booking findes ikke i databasen");
+        // TODO: Add check for existing booking
 
-        var db = Database.Bookings[booking.Id];
-        db.Id = booking.Id;
-        db.Start = booking.Start;
-        db.Slut = booking.Slut; 
+
+        //var db = context.Bookings.Find(booking.Id);
+        
+
+        try
+        {
+            context.Bookings.Update(booking);
+
+        }
+        catch
+        {
+            throw new Exception("Failed to delete booking");
+        }
     }
 }
