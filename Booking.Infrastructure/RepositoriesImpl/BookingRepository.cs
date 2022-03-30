@@ -19,6 +19,7 @@ public class BookingRepository : IBookingRepository
         try
         {
             context.Bookings.Remove(booking);
+            context.SaveChanges();
 
         }
         catch
@@ -30,6 +31,7 @@ public class BookingRepository : IBookingRepository
     void IBookingRepository.Add(Domain.Entities.Booking booking)
     {
         context.Bookings.Add(booking);
+        context.SaveChanges();
 
         // TODO: Remove after explenation
         //context.Bookings.Add(booking.Id, new BookingQueryDto{Id = booking.Id, Slut = booking.Slut, Start = booking.Start});
@@ -55,7 +57,7 @@ public class BookingRepository : IBookingRepository
         try
         {
             context.Bookings.Update(booking);
-
+            context.SaveChanges();
         }
         catch
         {
