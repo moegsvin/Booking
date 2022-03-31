@@ -20,10 +20,16 @@ public class IndexModel : PageModel
 
     [BindProperty] public IEnumerable<BookingIndexModel> Bookings { get; set; } = Enumerable.Empty<BookingIndexModel>();
 
-    public void OnGet()
+    public async Task OnGet()
     {
+
+        // TODO: Her er problemet indtil videre
         var bookings = new List<BookingIndexModel>();
-        _bookingService.Get().ToList().ForEach(a => bookings.Add(new BookingIndexModel(a)));
+        var list = await _bookingService.GetAsync();
+
+        list.ToList().ForEach(a => bookings.Add(new BookingIndexModel(a)));
+
+        //_bookingService.GetAsync().ToList().ForEach(a => bookings.Add(new BookingIndexModel(a)));
         Bookings = bookings;
     }
 

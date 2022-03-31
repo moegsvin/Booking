@@ -9,7 +9,7 @@ namespace Booking.Contract
 {
     public interface IBookingService
     {
-        public IEnumerable<BookingServiceDto> Get();
+        public Task<IEnumerable<BookingServiceDto>> GetAsync();
 
         public BookingServiceDto Get(Guid id);
 

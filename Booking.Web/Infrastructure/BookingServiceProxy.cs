@@ -6,10 +6,10 @@ namespace Booking.Web.Infrastructure
 {
     public class BookingServiceProxy : IBookingService
     {
-        private readonly IHttpClientFactory _httpClient;
+        private readonly HttpClient _httpClient;
         public BookingServiceProxy(HttpClient httpClient)
         {
-            _httpClient= (IHttpClientFactory?)httpClient;
+            _httpClient= (HttpClient?)httpClient;
         }
 
         public void Delete(Guid id)
@@ -17,13 +17,9 @@ namespace Booking.Web.Infrastructure
             throw new NotImplementedException();
         }
 
-        public IEnumerable<BookingServiceDto> Get()
+        public async Task<IEnumerable<BookingServiceDto>> GetAsync()
         {
-
-
-
-
-            throw new NotImplementedException();
+            return await _httpClient.GetFromJsonAsync<IEnumerable<BookingServiceDto>>("api/Booking");
         }
 
         public BookingServiceDto Get(Guid id)
